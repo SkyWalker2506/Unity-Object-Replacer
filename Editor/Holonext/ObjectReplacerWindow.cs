@@ -25,24 +25,24 @@ public class ObjectReplacerWindow : EditorWindow
 
     void OnGUI()
     {
-
+        EditorGUILayout.Space(); 
         if (!replaceAll)
         {
             replaceAll = GUILayout.Toggle(replaceAll, "Replace All", "button");
 
+            EditorGUILayout.Space();
             replacementPercentage = EditorGUILayout.Slider("Replacement Percentage",replacementPercentage, 1, 100);
         }
         else
         {
             replaceAll = GUILayout.Toggle(replaceAll, "Replace By Percentage", "button");
-
             replacementPercentage = 100;
         }
- 
+        EditorGUILayout.Space();
 
 
         newObjectPrefab = (GameObject)EditorGUILayout.ObjectField("New Object Prefab",newObjectPrefab, typeof(GameObject), true);
-
+        EditorGUILayout.Space();
         GUILayout.BeginHorizontal("box");
         CreateOldObjectField();
         if (GUILayout.Button("Clear List"))
@@ -50,7 +50,7 @@ public class ObjectReplacerWindow : EditorWindow
             OldObjects.Clear();
         }
         GUILayout.EndHorizontal();
-
+        EditorGUILayout.Space();
         if (GUILayout.Button("Replace"))
         {
             ReplaceObjects();
