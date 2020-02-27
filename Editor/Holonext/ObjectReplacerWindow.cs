@@ -17,6 +17,7 @@ public class ObjectReplacerWindow : EditorWindow
     static void Init()
     {
         ObjectReplacerWindow window = (ObjectReplacerWindow)EditorWindow.GetWindow(typeof(ObjectReplacerWindow));
+        window.minSize = new Vector2(320f, 200f);
         window.Show();
     }
 
@@ -45,6 +46,7 @@ public class ObjectReplacerWindow : EditorWindow
         EditorGUILayout.Space();
         GUILayout.BeginHorizontal("box");
         CreateOldObjectField();
+        EditorGUILayout.LabelField(OldObjects.Count.ToString(), GUILayout.MaxWidth(25));
         if (GUILayout.Button("Clear List"))
         {
             OldObjects.Clear();
@@ -53,6 +55,7 @@ public class ObjectReplacerWindow : EditorWindow
         EditorGUILayout.Space();
         if (GUILayout.Button("Replace"))
         {
+            if(newObjectPrefab!=null)
             ReplaceObjects();
         }
     }
