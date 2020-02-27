@@ -38,20 +38,34 @@ public class ObjectReplacerWindow : EditorWindow
 
             replacementPercentage = 100;
         }
-        newObjectPrefab = (GameObject)EditorGUILayout.ObjectField(newObjectPrefab, typeof(GameObject), true);
+ 
 
-        ScriptableObject target = this;
-        SerializedObject so = new SerializedObject(target);
-        SerializedProperty oldObjects = so.FindProperty("OldObjects");
 
-        EditorGUILayout.PropertyField(oldObjects, true); // True means show children
-        so.ApplyModifiedProperties(); // Remember to apply modified properties
+        newObjectPrefab = (GameObject)EditorGUILayout.ObjectField("New Object Prefab",newObjectPrefab, typeof(GameObject), true);
+
+        GUILayout.BeginHorizontal("box");
+        CreateOldObjectField();
+        if (GUILayout.Button("Clear List"))
+        {
+            OldObjects.Clear();
+        }
+        GUILayout.EndHorizontal();
+
         if (GUILayout.Button("Replace"))
         {
             ReplaceObjects();
         }
     }
 
+    void CreateOldObjectField()
+    {
+        ScriptableObject target = this;
+        SerializedObject so = new SerializedObject(target);
+        SerializedProperty oldObjects = so.FindProperty("OldObjects");
+
+        EditorGUILayout.PropertyField(oldObjects, true);
+        so.ApplyModifiedProperties();
+    }
 
     void ReplaceObjects()
     {
